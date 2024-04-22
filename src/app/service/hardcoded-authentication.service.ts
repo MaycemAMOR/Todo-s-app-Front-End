@@ -9,10 +9,10 @@ export class HardcodedAuthenticationService {
   }
 
   autheticate(username: string, password: string) {
-    console.log('before ' + this.isUserLoggedIn());
+    //console.log('before ' + this.isUserLoggedIn());
     if (username === 'maycem' && password === '06864321') {
       sessionStorage.setItem('authenticaterUser', username);
-      console.log('after ' + this.isUserLoggedIn());
+      //console.log('after ' + this.isUserLoggedIn());
       return true;
     } else {
       return false;
