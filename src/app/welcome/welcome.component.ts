@@ -9,6 +9,7 @@ import {WelcomeDataService} from "../service/data/welcome-data.service";
 })
 export class WelcomeComponent implements OnInit {
   name = '';
+  welcomeMessageFromService = '';
 
   constructor(
     private router: ActivatedRoute,
@@ -17,12 +18,22 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log(this.router.snapshot.params["name"]);
     this.name = this.router.snapshot.params["name"];
   }
 
   getWelcomeMessage() {
-    this.welcomeDataService.executeHelloWorldBeanService();
+    this.welcomeDataService.executeHelloWorldBeanService().subscribe({
+        next: (response: any) => this.handleSuccessfulResponse(response),
+        error: error => this.handleErrorResponse(error)
+      }
+    );
+  }
+
+  handleSuccessfulResponse(response: any) {
+    this.welcomeMessageFromService = response.message;
+  }
+
+  private handleErrorResponse(error: any) {
+    this.welcomeMessageFromService = error.message;
   }
 }
