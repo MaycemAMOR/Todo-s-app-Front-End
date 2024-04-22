@@ -24,5 +24,8 @@ export class HardcodedAuthenticationService {
     return !(user === null);
   }
 
+  logOut() {
+    sessionStorage.clear();
+  }
 
 }
