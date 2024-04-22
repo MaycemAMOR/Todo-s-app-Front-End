@@ -2,16 +2,16 @@
   <caption> My Todo's</caption>
   <thead>
   <tr>
-    <th>Id</th>
     <th>Description</th>
+    <th>Target Date</th>
+    <th>Is Completed?</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let todo of todos">
-    <td>{{ todo.id }}</td>
+  <tr *ngFor="let todo of todos ; trackBy: itemTrackBy">
     <td>{{ todo.description }}</td>
+    <td>{{ todo.targetDate | date | uppercase }}</td>
+    <td>{{ todo.done }}</td>
   </tr>
   </tbody>
-
-
 </table>
