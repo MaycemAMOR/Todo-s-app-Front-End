@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 
 
@@ -25,8 +25,18 @@ export class WelcomeDataService {
   }
 
   executeHelloWorldBeanWithPathVariableService(name: string): Observable<HelloWorldBean> {
-    return this.http.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${name}`);
+    const basicAuthHeaderString = this.createBasicAuthenticationHttpHeader();
+    const headers: HttpHeaders = new HttpHeaders({Authorization: basicAuthHeaderString})
+    return this.http.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${name}`, {headers});
   }
+
+  createBasicAuthenticationHttpHeader(): string {
+    const username: string = 'user';
+    const password: string = 'password';
+    return 'Basic ' + window.btoa(username + ':' + password);
+
+  }
+
 
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string;

@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.name = sessionStorage.getItem('authenticaterUser');
+    this.name = sessionStorage.getItem('authenticateUser');
   }
 
   getWelcomeMessage() {
