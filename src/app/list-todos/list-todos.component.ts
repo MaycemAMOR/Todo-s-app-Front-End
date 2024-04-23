@@ -10,6 +10,7 @@ export class ListTodosComponent implements OnInit {
   username: any = '';
   todos: Todo[] = [];
   errorMessage: string = '';
+  message: string | undefined;
 
   constructor(private todosDataService: TodoDataService) {
   }
@@ -19,6 +20,10 @@ export class ListTodosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.refreshTodo();
+  }
+
+  refreshTodo() {
     this.username = sessionStorage.getItem('authenticaterUser');
     this.todosDataService.retrieveAllTodos(this.username).subscribe({
       next: (response) => this.handleSuccessfulResponse(response),
@@ -29,6 +34,18 @@ export class ListTodosComponent implements OnInit {
     })
   }
 
+  deleteTodo(id: number) {
+    this.todosDataService.deleteTodo(this.username, id).subscribe({
+      next: () => {
+        this.message = `Delete of Todo ${id} Successful!`;
+        this.refreshTodo();
+      },
+      error: error => {
+        this.handleErrorResponse(error);
+        this.todosDataService.handleError(error)
+      }
+    })
+  }
 
   private handleErrorResponse(error: any) {
     this.errorMessage = error.message;
