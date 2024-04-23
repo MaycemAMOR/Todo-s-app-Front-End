@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo, TodoDataService} from "../service/data/todo-data.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-todos',
@@ -12,7 +13,7 @@ export class ListTodosComponent implements OnInit {
   errorMessage: string = '';
   message: string | undefined;
 
-  constructor(private todosDataService: TodoDataService) {
+  constructor(private todosDataService: TodoDataService, private router: Router) {
   }
 
   public itemTrackBy(index: number, item: Todo) {
@@ -45,6 +46,11 @@ export class ListTodosComponent implements OnInit {
         this.todosDataService.handleError(error)
       }
     })
+  }
+
+  updateTodo(id: number) {
+    this.router.navigate(['/todo/', id]);
+
   }
 
   private handleErrorResponse(error: any) {
