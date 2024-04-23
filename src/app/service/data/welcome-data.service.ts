@@ -24,6 +24,10 @@ export class WelcomeDataService {
     return this.http.get<HelloWorldBean>('http://localhost:8080/hello-world-bean');
   }
 
+  executeHelloWorldBeanWithPathVariableService(name: string): Observable<HelloWorldBean> {
+    return this.http.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${name}`);
+  }
+
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string;
 
@@ -43,8 +47,6 @@ export class WelcomeDataService {
       '\n' +
       errorMessage));
   }
-
-
 }
 
 
