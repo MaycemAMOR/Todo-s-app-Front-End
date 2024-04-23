@@ -32,6 +32,10 @@ export class TodoDataService {
     return this.http.get<Todo>(`http://localhost:8080/users/${name}/todos/${id}`);
   }
 
+  updateTodo(name: any, id: number | undefined, todo: Todo) {
+    return this.http.put(`http://localhost:8080/users/${name}/todos/${id}`, todo);
+  }
+
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string;
 
