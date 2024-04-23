@@ -36,6 +36,10 @@ export class TodoDataService {
     return this.http.put(`http://localhost:8080/users/${name}/todos/${id}`, todo);
   }
 
+  createTodo(name: any, id: number | undefined, todo: Todo): Observable<Todo> {
+    return this.http.post<Todo>(`http://localhost:8080/users/${name}/todos`, todo);
+  }
+
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string;
 

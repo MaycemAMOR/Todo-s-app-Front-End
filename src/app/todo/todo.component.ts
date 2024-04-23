@@ -21,26 +21,40 @@ export class TodoComponent implements OnInit {
   }
 
   saveTodo() {
-    this.todoDataService.updateTodo(this.username, this.id, this.todo).subscribe({
-      next: (response) => this.router.navigate(['/todos']),
-      error: error => {
-        this.todoDataService.handleError(error);
-        this.handleError(error)
-      }
-    })
+    if (this.id != -1) {
+      this.todoDataService.updateTodo(this.username, this.id, this.todo).subscribe({
+        next: () => this.router.navigate(['/todos']),
+        error: error => {
+          this.todoDataService.handleError(error);
+          this.handleError(error)
+        }
+      });
+    } else {
+      this.todo.username = this.username;
+      this.todoDataService.createTodo(this.username, this.id, this.todo).subscribe({
+        next: () => this.router.navigate(['/todos']),
+        error: error => {
+          this.todoDataService.handleError(error);
+          this.handleError(error)
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params["id"];
     // @ts-ignore
     this.username = sessionStorage.getItem('authenticateUser');
-    this.todoDataService.getTodo(this.username, this.id).subscribe({
-      next: (response => this.todo = response),
-      error: error => {
-        this.handleError(error);
-        this.todoDataService.handleError(error)
-      }
-    })
+    if (this.id != -1) {
+      this.todoDataService.getTodo(this.username, this.id).subscribe({
+        next: (response => this.todo = response),
+        error: error => {
+          this.handleError(error);
+          this.todoDataService.handleError(error)
+        }
+      })
+    }
+
   }
 
   private handleError(error: any) {

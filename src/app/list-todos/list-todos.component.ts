@@ -52,6 +52,11 @@ export class ListTodosComponent implements OnInit {
     this.router.navigate(['/todo/', id]);
   }
 
+  addTodo() {
+    this.router.navigate(['/todo', -1]);
+
+  }
+
   private handleErrorResponse(error: any) {
     this.errorMessage = error.message;
   }
