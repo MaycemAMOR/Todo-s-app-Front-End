@@ -2,15 +2,26 @@
 <div class="container">
   <fieldset class="form-group">
     <label>Description</label>
-    <input class="form-control" name="description" required="required" type="text">
+    <input [(ngModel)]="todo.description" class="form-control" name="description" required="required" type="text">
   </fieldset>
 
   <fieldset class="form-group">
     <label>Target Date</label>
-    <input class="form-control" name="targetDate" required="required" type="date">
+    <input (ngModelChange)="todo.targetDate = $event"
+           [ngModel]="todo.targetDate | date:'yyyy-MM-dd'"
+           class="form-control"
+           name="targetDate"
+           required="required"
+           type="date">
   </fieldset>
 
 
   <button (click)="saveTodo()" class="btn btn-success" style=" margin-top: 20px;">Save</button>
 
+</div>
+
+
+<div *ngIf="errorMessage" class="container">
+  <h2>Some Error has Happened! Contact Support at **** - **** - ****</h2>
+  {{ errorMessage }}
 </div>

@@ -28,6 +28,10 @@ export class TodoDataService {
     return this.http.delete<Todo>(`http://localhost:8080/users/${name}/todos/${id}`);
   }
 
+  getTodo(name: any, id: number | undefined): Observable<Todo> {
+    return this.http.get<Todo>(`http://localhost:8080/users/${name}/todos/${id}`);
+  }
+
   public handleError(error: HttpErrorResponse) {
     let errorMessage: string;
 

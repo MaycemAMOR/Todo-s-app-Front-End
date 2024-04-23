@@ -25,7 +25,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   refreshTodo() {
-    this.username = sessionStorage.getItem('authenticaterUser');
+    this.username = sessionStorage.getItem('authenticateUser');
     this.todosDataService.retrieveAllTodos(this.username).subscribe({
       next: (response) => this.handleSuccessfulResponse(response),
       error: error => {
@@ -50,7 +50,6 @@ export class ListTodosComponent implements OnInit {
 
   updateTodo(id: number) {
     this.router.navigate(['/todo/', id]);
-
   }
 
   private handleErrorResponse(error: any) {
