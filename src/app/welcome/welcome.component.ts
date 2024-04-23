@@ -8,7 +8,7 @@ import {HelloWorldBean, WelcomeDataService} from "../service/data/welcome-data.s
   styleUrl: './welcome.component.css'
 })
 export class WelcomeComponent implements OnInit {
-  name = '';
+  name: any = '';
   welcomeMessageFromService = '';
 
   constructor(
@@ -18,7 +18,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.name = this.route.snapshot.params["name"];
+    this.name = sessionStorage.getItem('authenticaterUser');
   }
 
   getWelcomeMessage() {

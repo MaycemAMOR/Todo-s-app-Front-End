@@ -1,15 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
-
-export class todo {
-  constructor(
-    public id: number,
-    public description: string,
-    public done: boolean,
-    public targetDate: Date,
-  ) {
-  }
-}
+import {Todo, TodoDataService} from "../service/data/todo-data.service";
 
 @Component({
   selector: 'app-list-todos',
@@ -17,23 +7,34 @@ export class todo {
   styleUrl: './list-todos.component.css'
 })
 export class ListTodosComponent implements OnInit {
-  todos = [
-    new todo(1, 'Learn to Dance', false, new Date()),
-    new todo(2, 'Visit India', false, new Date()),
-    new todo(3, 'Visit Egypt', false, new Date()),
-    new todo(4, 'Visit France', false, new Date()),
-    new todo(5, 'Visit USA', false, new Date()),
-    new todo(5, 'Visit Canada', false, new Date())
-  ]
+  username: any = '';
+  todos: Todo[] = [];
+  errorMessage: string = '';
 
-  constructor() {
+  constructor(private todosDataService: TodoDataService) {
   }
 
-  public itemTrackBy(index: number, item: todo) {
+  public itemTrackBy(index: number, item: Todo) {
     return item.id;
   }
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('authenticaterUser');
+    this.todosDataService.retrieveAllTodos(this.username).subscribe({
+      next: (response) => this.handleSuccessfulResponse(response),
+      error: error => {
+        this.handleErrorResponse(error);
+        this.todosDataService.handleError(error)
+      }
+    })
   }
 
+
+  private handleErrorResponse(error: any) {
+    this.errorMessage = error.message;
+  }
+
+  private handleSuccessfulResponse(response: Todo[]) {
+    this.todos = response;
+  }
 }

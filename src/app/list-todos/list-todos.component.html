@@ -12,8 +12,13 @@
     <tr *ngFor="let todo of todos ; trackBy: itemTrackBy">
       <td>{{ todo.description }}</td>
       <td>{{ todo.targetDate | date | uppercase }}</td>
-      <td>{{ todo.done }}</td>
+      <td>{{ todo.isDone }}</td>
     </tr>
     </tbody>
   </table>
+</div>
+
+<div *ngIf="errorMessage" class="container">
+  <h2>Some Error has Happened! Contact Support at **** - **** - ****</h2>
+  {{ errorMessage }}
 </div>

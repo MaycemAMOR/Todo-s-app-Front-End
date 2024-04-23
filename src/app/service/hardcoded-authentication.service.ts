@@ -9,7 +9,7 @@ export class HardcodedAuthenticationService {
   }
 
   authenticate(username: string, password: string) {
-    if (username === 'maycem' && password === '06864321') {
+    if (username === 'MayTech' && password === '06864321') {
       sessionStorage.setItem('authenticaterUser', username);
       return true;
     } else {
