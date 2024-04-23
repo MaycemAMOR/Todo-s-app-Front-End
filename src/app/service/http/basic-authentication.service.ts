@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 
@@ -33,7 +33,14 @@ export class BasicAuthenticationService {
     /***** on a plus besoin de cette conf grace au service HttpInterceptor ***********/
     const basicAuthHeaderString = 'Basic ' + window.btoa(username + ':' + password);
     const headers: HttpHeaders = new HttpHeaders({Authorization: basicAuthHeaderString})
-    return this.http.get<AuthenticationBean>(`http://localhost:8080/basicauth`, {headers});
+    return this.http.get<AuthenticationBean>(`http://localhost:8080/basicauth`, {headers}).pipe(
+      map(
+        response => {
+          sessionStorage.setItem('authenticateUser', username);
+          return response;
+        }
+      )
+    );
   }
 
 
