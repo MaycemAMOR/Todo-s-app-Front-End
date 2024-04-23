@@ -9,7 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class TodoComponent implements OnInit {
 
-  id: number | undefined;
+  id!: number;
   username: string = '';
   errorMessage: string = '';
   todo: Todo = new Todo(1, '', '', new Date(), false);
@@ -43,6 +43,7 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params["id"];
+    this.todo = new Todo(this.id, '', '', new Date(), false);
     // @ts-ignore
     this.username = sessionStorage.getItem('authenticateUser');
     if (this.id != -1) {
