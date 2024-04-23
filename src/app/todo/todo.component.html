@@ -1,1 +1,16 @@
-<p>todo works!</p>
+<h1> Todo </h1>
+<div class="container">
+  <fieldset class="form-group">
+    <label>Description</label>
+    <input class="form-control" name="description" required="required" type="text">
+  </fieldset>
+
+  <fieldset class="form-group">
+    <label>Target Date</label>
+    <input class="form-control" name="targetDate" required="required" type="date">
+  </fieldset>
+
+
+  <button (click)="saveTodo()" class="btn btn-success" style=" margin-top: 20px;">Save</button>
+
+</div>
