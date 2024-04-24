@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
+import {API_URL} from "../../app.constants";
 
 
 export class HelloWorldBean {
@@ -21,14 +22,14 @@ export class WelcomeDataService {
   }
 
   executeHelloWorldBeanService(): Observable<HelloWorldBean> {
-    return this.http.get<HelloWorldBean>('http://localhost:8080/hello-world-bean');
+    return this.http.get<HelloWorldBean>('${API_URL}/hello-world-bean');
   }
 
   executeHelloWorldBeanWithPathVariableService(name: string): Observable<HelloWorldBean> {
     /***** on a plus besoin de cette conf grace au service HttpInterceptor ***********/
     /*const basicAuthHeaderString = this.createBasicAuthenticationHttpHeader();
    const headers: HttpHeaders = new HttpHeaders({Authorization: basicAuthHeaderString})*/
-    return this.http.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${name}`/*, {headers}*/);
+    return this.http.get<HelloWorldBean>(`${API_URL}/hello-world/path-variable/${name}`/*, {headers}*/);
   }
 
   /*createBasicAuthenticationHttpHeader(): string {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo, TodoDataService} from "../service/data/todo-data.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AUTHENTICATE_USER} from "../app.constants";
 
 @Component({
   selector: 'app-todo',
@@ -45,7 +46,7 @@ export class TodoComponent implements OnInit {
     this.id = this.route.snapshot.params["id"];
     this.todo = new Todo(this.id, '', '', new Date(), false);
     // @ts-ignore
-    this.username = sessionStorage.getItem('authenticateUser');
+    this.username = sessionStorage.getItem(AUTHENTICATE_USER);
     if (this.id != -1) {
       this.todoDataService.getTodo(this.username, this.id).subscribe({
         next: (response => this.todo = response),

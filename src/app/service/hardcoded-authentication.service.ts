@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AUTHENTICATE_USER} from "../app.constants";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class HardcodedAuthenticationService {
 
   authenticate(username: string, password: string) {
     if (username === 'MayTech' && password === '06864321') {
-      sessionStorage.setItem('authenticateUser', username);
+      sessionStorage.setItem(AUTHENTICATE_USER, username);
       return true;
     } else {
       return false;
@@ -18,7 +19,7 @@ export class HardcodedAuthenticationService {
   }
 
   isUserLoggedIn() {
-    const user = sessionStorage.getItem('authenticateUser');
+    const user = sessionStorage.getItem(AUTHENTICATE_USER);
     return !(user === null);
   }
 

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {API_URL} from "../../app.constants";
 
 export class Todo {
   constructor(public id: number,
@@ -21,23 +22,23 @@ export class TodoDataService {
   }
 
   retrieveAllTodos(name: any): Observable<Todo[]> {
-    return this.http.get<Todo[]>(`http://localhost:8080/users/${name}/todos`);
+    return this.http.get<Todo[]>(`${API_URL}/users/${name}/todos`);
   }
 
   deleteTodo(name: any, id: number): Observable<Todo> {
-    return this.http.delete<Todo>(`http://localhost:8080/users/${name}/todos/${id}`);
+    return this.http.delete<Todo>(`${API_URL}/users/${name}/todos/${id}`);
   }
 
   getTodo(name: any, id: number | undefined): Observable<Todo> {
-    return this.http.get<Todo>(`http://localhost:8080/users/${name}/todos/${id}`);
+    return this.http.get<Todo>(`${API_URL}/users/${name}/todos/${id}`);
   }
 
   updateTodo(name: any, id: number | undefined, todo: Todo) {
-    return this.http.put(`http://localhost:8080/users/${name}/todos/${id}`, todo);
+    return this.http.put(`${API_URL}/users/${name}/todos/${id}`, todo);
   }
 
   createTodo(name: any, id: number | undefined, todo: Todo): Observable<Todo> {
-    return this.http.post<Todo>(`http://localhost:8080/users/${name}/todos`, todo);
+    return this.http.post<Todo>(`${API_URL}/users/${name}/todos`, todo);
   }
 
   public handleError(error: HttpErrorResponse) {

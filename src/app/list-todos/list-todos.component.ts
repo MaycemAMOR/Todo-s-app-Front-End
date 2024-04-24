@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Todo, TodoDataService} from "../service/data/todo-data.service";
 import {Router} from "@angular/router";
+import {AUTHENTICATE_USER} from "../app.constants";
 
 @Component({
   selector: 'app-list-todos',
@@ -25,7 +26,7 @@ export class ListTodosComponent implements OnInit {
   }
 
   refreshTodo() {
-    this.username = sessionStorage.getItem('authenticateUser');
+    this.username = sessionStorage.getItem(AUTHENTICATE_USER);
     this.todosDataService.retrieveAllTodos(this.username).subscribe({
       next: (response) => this.handleSuccessfulResponse(response),
       error: error => {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {HelloWorldBean, WelcomeDataService} from "../service/data/welcome-data.service";
+import {AUTHENTICATE_USER} from "../app.constants";
 
 @Component({
   selector: 'app-welcome',
@@ -18,7 +19,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.name = sessionStorage.getItem('authenticateUser');
+    this.name = sessionStorage.getItem(AUTHENTICATE_USER);
   }
 
   getWelcomeMessage() {
