@@ -18,7 +18,7 @@ export class BasicAuthenticationService {
 
   executeAuthenticationService(username: string, password: string): Observable<AuthenticationBean> {
     /***** on a plus besoin de cette conf grace au service HttpInterceptor ***********/
-   /*** dans ce cas j'ai utilisé ici car j'ai désactivé le httpInterceptor at app.module.ts***/
+    /*** dans ce cas j'ai utilisé ici car j'ai désactivé le httpInterceptor at app.module.ts***/
 
     const basicAuthHeaderString = 'Basic ' + window.btoa(username + ':' + password);
     const headers: HttpHeaders = new HttpHeaders({Authorization: basicAuthHeaderString})
@@ -37,6 +37,7 @@ export class BasicAuthenticationService {
     return sessionStorage.getItem('authenticateUser');
   }
 
+  // @ts-ignore
   getAuthenticatedToken(): string | null {
     if (this.getAuthenticatedUser()) {
       return sessionStorage.getItem('token');
