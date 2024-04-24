@@ -17,6 +17,18 @@ export class BasicAuthenticationService {
   constructor(private http: HttpClient) {
   }
 
+  executeJWTAuthenticationService(username: string, password: string): Observable<AuthenticationBean> {
+    return this.http.post<any>(`${API_URL}/authenticate`, {username, password}).pipe(
+      map(
+        response => {
+          sessionStorage.setItem(AUTHENTICATE_USER, username);
+          sessionStorage.setItem(TOKEN, `Bearer ${response.token}`);
+          return response;
+        }
+      )
+    );
+  }
+
   executeAuthenticationService(username: string, password: string): Observable<AuthenticationBean> {
     /***** on a plus besoin de cette conf grace au service HttpInterceptor ***********/
     /*** dans ce cas j'ai utilisé ici car j'ai désactivé le httpInterceptor at app.module.ts***/
